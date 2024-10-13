@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.davy.quezzy.entities.UserEntity;
-import com.davy.quezzy.helpers.errors.NotFound;
 import com.davy.quezzy.repositories.UserRepository;
 
 @RestController
@@ -22,9 +21,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserEntity getUserById(@PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(
-            () -> new NotFound("User " + id + " not found")
-        );
+        return userRepository.findById(id).get();
     }
 
     @PostMapping
@@ -34,8 +31,9 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserEntity updateUser(@PathVariable Long id, @RequestBody UserEntity user) {
-        UserEntity userToUpdate = userRepository.findById(id).get();
+        UserEntity userToUpdate = this.getUserById(id);
         userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setPassword(user.getPassword());
         userToUpdate.setEmail(user.getEmail());
         return userRepository.save(userToUpdate);
     }
