@@ -1,0 +1,27 @@
+name: deployment
+
+on:
+  push:
+    branches:
+      - master
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set environment variables
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "master" ]]; then
+            echo "SPRING_PROFILES_ACTIVE=prod" >> $GITHUB_ENV
+          else
+            echo "SPRING_PROFILES_ACTIVE=dev" >> $GITHUB_ENV
+          fi
+
+          echo "DATABASE_URL=jdbc:postgresql://java_db:5432/postgres" >> $GITHUB_ENV
+          echo "DATABASE_USERNAME=postgres" >> $GITHUB_ENV
+          echo "DATABASE_PASSWORD=postgres" >> $GITHUB_ENV
