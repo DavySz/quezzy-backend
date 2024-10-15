@@ -1,0 +1,31 @@
+name: deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    if: github.ref_name != 'master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out repository
+        uses: actions/checkout@v3
+
+      - name: set up java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: build the application
+        run: ./mvnw clean package -DskipTests
+
+      - name: deploy to heroku
+        env:
+          HEROKU_API_KEY: 8b095e46-baad-4b35-9fa4-8c201dc5b085
+          HEROKU_APP_NAME: quezzy-backend
+        run: |
+          echo "Deploying branch $GITHUB_REF to Heroku..."
+          git remote add heroku https://git.heroku.com/${{ env.HEROKU_APP_NAME }}.git
+          git push heroku $GITHUB_REF:main --force
