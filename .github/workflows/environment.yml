@@ -1,4 +1,4 @@
-name: deployment
+name: environment
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Set environment variables
+      - name: set environment variables
         run: |
           if [[ "${GITHUB_REF##*/}" == "master" ]]; then
             echo "SPRING_PROFILES_ACTIVE=prod" >> $GITHUB_ENV
