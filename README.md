@@ -8,7 +8,7 @@
 
 Aplicação educacional que utiliza gamificação para transformar o aprendizado em uma experiência interativa, promovendo engajamento com questões lúdicas e conteúdos sobre cidadania e sustentabilidade.
 
-## 🚀 Getting started
+## 🚀 Começando
 
 Para rodar o projeto no <b>ambiente local</b> siga os passos a seguir:
 
@@ -78,4 +78,4 @@ Caso você queira usar o insomnia para testar os endpoints locamente, segue o JS
 </br>
 
 ---
-<p align="center">Made with ❤️ by Davy de Souza</p>
+<p align="center">Feito com ❤️ por Davy Assunção</p>
