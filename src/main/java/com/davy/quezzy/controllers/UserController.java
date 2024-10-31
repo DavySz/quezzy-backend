@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.davy.quezzy.entities.UserEntity;
 import com.davy.quezzy.helpers.DateFormatter;
+import com.davy.quezzy.helpers.EmailValidator;
 import com.davy.quezzy.models.UserModel;
 import com.davy.quezzy.repositories.UserRepository;
 
@@ -44,25 +45,46 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Criar um novo usuário")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserModel user) {
+    public ResponseEntity<?> createUser(@RequestBody UserModel user) {
+        if (user.getUsername() == null || user.getUsername().isEmpty() ||
+            user.getPassword() == null || user.getPassword().isEmpty() ||
+            user.getEmail() == null || user.getEmail().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Todos os campos são obrigatórios");
+        }
+    
+        if (!EmailValidator.isValid(user.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email inválido");
+        }
+    
         UserEntity userEntity = new UserEntity();
-
         userEntity.setUsername(user.getUsername());
         userEntity.setPassword(user.getPassword());
         userEntity.setEmail(user.getEmail());
         userEntity.setCreatedAt(DateFormatter.getCurrentDateTime());
         userEntity.setUpdatedAt(DateFormatter.getCurrentDateTime());
-
+    
         UserEntity createdUser = userRepository.save(userEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar um usuário existente")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable Long id, @RequestBody UserModel user) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserModel user) {
         Optional<UserEntity> response = userRepository.findById(id);
         if(response.isPresent()) {
             UserEntity userToUpdate = response.get();
+
+            if (user.getUsername() == null || user.getUsername().isEmpty() ||
+                user.getPassword() == null || user.getPassword().isEmpty() ||
+                user.getEmail() == null || user.getEmail().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Todos os campos são obrigatórios");
+            }
+        
+            if (!EmailValidator.isValid(user.getEmail())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email inválido");
+            }
+
+
             userToUpdate.setUsername(user.getUsername());
             userToUpdate.setPassword(user.getPassword());
             userToUpdate.setEmail(user.getEmail());

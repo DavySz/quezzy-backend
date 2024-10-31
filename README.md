@@ -30,9 +30,18 @@ Em seguida, no terminal rode o comando:
 ```bash
 docker-compose up --build
 ```
+
 </br>
 
 ## 🧪 Teste a API
+
+Você pode rodar os testes da aplicação rodando o comando:
+
+```bash
+mvn clean test
+```
+
+Ou, caso queira rodar a aplicação localmente </br>
 
 <h3><b>Localmente</b></h3>
 
@@ -62,7 +71,7 @@ https://quezzy-backend-d489b1d85db8.herokuapp.com/swagger-ui/index.html
 - [x] Atualização de usuários
 - [x] Deletar usuários existentes
 - [x] Atualizar usuários existentes
-      
+
 </br>
 
 - [x] Criação de categorias
@@ -72,12 +81,12 @@ https://quezzy-backend-d489b1d85db8.herokuapp.com/swagger-ui/index.html
 
 </br>
 
-- [X] Criação de questões
+- [x] Criação de questões
 - [x] Atualização de questões
 - [x] Deletar questões existentes
 - [x] Atualizar questões existentes
-- [X] Listar questões por categoria
-</br>
+- [x] Listar questões por categoria
+      </br>
 
 ## ✨ Tecnologias
 
@@ -85,7 +94,8 @@ https://quezzy-backend-d489b1d85db8.herokuapp.com/swagger-ui/index.html
 - [x] Spring Boot
 - [x] Hibernate
 - [x] Postgresql
-</br>
+      </br>
 
 ---
+
 <p align="center">Feito com ❤️ por Davy Assunção</p>
