@@ -1,69 +1,76 @@
 # language: pt
-Funcionalidade: Listar e Gerenciar Usuários  
-  Como administrador  
-  Quero listar, criar, atualizar e deletar usuários  
-  Para gerenciar o acesso ao sistema  
+Funcionalidade: Gerenciamento de Usuários
+  Como um administrador
+  Eu quero gerenciar usuários
+  Para que eu possa manter o sistema atualizado
 
-  Cenário: Listar todos os usuários com sucesso  
-    Dado que existem usuários cadastrados no sistema  
-    Quando faço uma requisição GET para "/api/users"  
-    Então o status da resposta deve ser 200  
-    E o corpo da resposta deve conter uma lista de usuários  
+  Cenário: Listar todos os usuários
+    Dado que eu criei um usuário válido
+    Quando eu faço uma requisição GET para "/api/users"
+    Então a resposta deve ter status 200
+    E a resposta deve conter uma lista de usuários
 
-  Cenário: Criar um novo usuário com sucesso  
-    Dado que forneço um username, email e password válidos  
-    Quando faço uma requisição POST para "/api/users" com o corpo JSON:  
-      """  
-      {  
-        "username": "davy123",  
-        "email": "davy@gmail.com",  
-        "password": "senha123"  
-      }  
-      """  
-    Então o status da resposta deve ser 201  
-    E o corpo da resposta deve conter o usuário criado  
+  Cenário: Retornar vazio quando não há usuários
+    Quando eu faço uma requisição GET para "/api/users"
+    Então a resposta deve ter status 200
+    E a resposta deve conter uma lista vazia
 
-  Cenário: Criar um usuário com email inválido  
-    Dado que forneço um username e password válidos  
-    E um email inválido  
-    Quando faço uma requisição POST para "/api/users" com o corpo JSON:  
-      """  
-      {  
-        "username": "davy123",  
-        "email": "davy@",  
-        "password": "senha123"  
-      }  
-      """  
-    Então o status da resposta deve ser 400  
-    E o corpo da resposta deve conter uma mensagem de erro sobre o email inválido  
+  Cenário: Criar usuário com campos faltando
+    Dado que eu tenho um usuário com campos faltando
+    Quando eu faço uma requisição POST para "/api/users"
+    Então a resposta deve ter status 400
+    E a resposta deve conter "Todos os campos são obrigatórios"
 
-  Cenário: Buscar um usuário pelo ID que não existe  
-    Dado que não existe um usuário com ID 999  
-    Quando faço uma requisição GET para "/api/users/999"  
-    Então o status da resposta deve ser 404  
-    E o corpo da resposta deve estar vazio  
+  Cenário: Criar usuário com email inválido
+    Dado que eu tenho um usuário com email inválido
+    Quando eu faço uma requisição POST para "/api/users"
+    Então a resposta deve ter status 400
+    E a resposta deve conter "Email inválido"
 
-  Cenário: Atualizar um usuário com sucesso  
-    Dado que existe um usuário com ID 1  
-    Quando faço uma requisição PUT para "/api/users/1" com o corpo JSON:  
-      """  
-      {  
-        "username": "davy_updated",  
-        "email": "davy_updated@gmail.com",  
-        "password": "senha123"  
-      }  
-      """  
-    Então o status da resposta deve ser 200  
-    E o corpo da resposta deve conter o usuário atualizado  
+  Cenário: Criar usuário válido
+    Dado que eu tenho um usuário válido
+    Quando eu faço uma requisição POST para "/api/users"
+    Então a resposta deve ter status 201
 
-  Cenário: Deletar um usuário que existe  
-    Dado que existe um usuário com ID 1  
-    Quando faço uma requisição DELETE para "/api/users/1"  
-    Então o status da resposta deve ser 204  
-    E o corpo da resposta deve estar vazio  
+  Cenário: Buscar usuário por ID
+    Dado que eu criei um usuário válido
+    Quando eu faço uma requisição GET para "/api/users/{id}"
+    Então a resposta deve ter status 200
+    E a resposta deve conter os dados do usuário
 
-  Cenário: Deletar um usuário que não existe  
-    Dado que não existem usuários com ID 999  
-    Quando faço uma requisição DELETE para "/api/users/999"  
-    Então o status da resposta deve ser 404  
-    E o corpo da resposta deve estar vazio  
+  Cenário: Buscar usuário por ID não encontrado
+    Quando eu faço uma requisição GET para "/api/users/9999"
+    Então a resposta deve ter status 404
+
+  Cenário: Atualizar usuário
+    Dado que eu criei um usuário válido
+    Quando eu faço uma requisição PUT para "/api/users/{id}"
+    Então a resposta deve ter status 200
+    E a resposta deve conter os dados atualizados do usuário
+
+  Cenário: Atualizar usuário não encontrado
+    Quando eu faço uma requisição PUT para "/api/users/9999"
+    Então a resposta deve ter status 404
+
+  Cenário: Atualizar usuário com campos faltando
+    Dado que eu criei um usuário válido
+    E eu tenho um usuário com campos faltando
+    Quando eu faço uma requisição PUT para "/api/users/{id}"
+    Então a resposta deve ter status 400
+    E a resposta deve conter "Todos os campos são obrigatórios"
+
+  Cenário: Atualizar usuário com email inválido
+    Dado que eu criei um usuário válido
+    E eu tenho um usuário com email inválido
+    Quando eu faço uma requisição PUT para "/api/users/{id}"
+    Então a resposta deve ter status 400
+    E a resposta deve conter "Email inválido"
+
+  Cenário: Deletar usuário
+    Dado que eu criei um usuário válido
+    Quando eu faço uma requisição DELETE para "/api/users/{id}"
+    Então a resposta deve ter status 204
+
+  Cenário: Deletar usuário não encontrado
+    Quando eu faço uma requisição DELETE para "/api/users/9999"
+    Então a resposta deve ter status 404
