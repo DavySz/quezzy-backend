@@ -34,6 +34,13 @@ docker-compose up --build
 
 ## 🧪 Teste a API
 
+Você pode rodar os testes da aplicação rodando o comando:
+
+```bash
+mvn clean test
+```
+
+Ou, caso queira rodar a aplicação localmente </br>
 Após rodar o projeto localmente, você pode acessar a documentação do projeto no <b>swagger</b>, abrindo esta URL no seu navegador:
 
 ```bash
