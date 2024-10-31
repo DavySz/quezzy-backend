@@ -30,6 +30,7 @@ Em seguida, no terminal rode o comando:
 ```bash
 docker-compose up --build
 ```
+
 </br>
 
 ## 🧪 Teste a API
@@ -41,6 +42,9 @@ mvn clean test
 ```
 
 Ou, caso queira rodar a aplicação localmente </br>
+
+<h3><b>Localmente</b></h3>
+
 Após rodar o projeto localmente, você pode acessar a documentação do projeto no <b>swagger</b>, abrindo esta URL no seu navegador:
 
 ```bash
@@ -51,6 +55,14 @@ Caso você queira usar o insomnia para testar os endpoints locamente, segue o JS
 
 [Download Insomnia Collection](https://drive.google.com/file/d/175i8yG9J5tMiCaRo2PyIvaWUXR5AAK32/view?usp=sharing)
 
+<h3><b>Em produção</b></h3>
+
+Se quiser testar aplicação no ambiente de produção, basta acessar a documentação do projeto no <b>swagger</b>, abrindo esta URL no seu navegador:
+
+```bash
+https://quezzy-backend-d489b1d85db8.herokuapp.com/swagger-ui/index.html
+```
+
 </br>
 
 ## 🛠️ Funcionalidades
@@ -59,7 +71,7 @@ Caso você queira usar o insomnia para testar os endpoints locamente, segue o JS
 - [x] Atualização de usuários
 - [x] Deletar usuários existentes
 - [x] Atualizar usuários existentes
-      
+
 </br>
 
 - [x] Criação de categorias
@@ -69,12 +81,12 @@ Caso você queira usar o insomnia para testar os endpoints locamente, segue o JS
 
 </br>
 
-- [X] Criação de questões
+- [x] Criação de questões
 - [x] Atualização de questões
 - [x] Deletar questões existentes
 - [x] Atualizar questões existentes
-- [X] Listar questões por categoria
-</br>
+- [x] Listar questões por categoria
+      </br>
 
 ## ✨ Tecnologias
 
@@ -82,7 +94,8 @@ Caso você queira usar o insomnia para testar os endpoints locamente, segue o JS
 - [x] Spring Boot
 - [x] Hibernate
 - [x] Postgresql
-</br>
+      </br>
 
 ---
+
 <p align="center">Feito com ❤️ por Davy Assunção</p>
